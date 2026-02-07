@@ -5,7 +5,7 @@ Cloudflare KV-backed environment sync CLI with a built-in Node hot-update SDK.
 ## Install
 
 ```bash
-npm install -g cfenv-kv-sync
+npm install -g cfenv-kv-sync@beta
 ```
 
 ## Core Commands
