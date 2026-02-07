@@ -7,6 +7,9 @@ packages/python-sdk/build
 .env.*
 .wrangler
 packages/python-sdk/.venv
+examples/user-flow-simulation/mock-home
+examples/user-flow-simulation/mock-kv-store.json
+examples/user-flow-simulation/demo-app/exported.json
 *.egg-info
 __pycache__
 *.pyc

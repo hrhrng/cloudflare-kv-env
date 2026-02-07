@@ -66,6 +66,8 @@ uv run python -m unittest discover -s tests -v
 
 - Architecture and plan: `docs/PLAN.md`
 - Production checklist: `docs/PRODUCTION.md`
+- Release guide: `docs/RELEASE.md`
+- End-user simulation: `examples/user-flow-simulation/README.md`
 
 ## Publish via GitHub
 
