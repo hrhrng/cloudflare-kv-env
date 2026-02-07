@@ -24,6 +24,17 @@ mkdocs build --clean --strict
 - Deploy target: GitHub Pages (`actions/deploy-pages`)
 - Output URL: `https://hrhrng.github.io/cloudflare-kv-env/`
 
+## One-time repository setup
+
+In GitHub repository settings:
+
+1. Open `Settings` -> `Pages`
+2. In `Build and deployment`, set `Source` to `GitHub Actions`
+
+Without this one-time setup, deploy job fails with:
+
+- `Failed to create deployment ... Ensure GitHub Pages has been enabled`
+
 ## Structure
 
 - Config: `mkdocs.yml`

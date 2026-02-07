@@ -91,3 +91,8 @@ Docs deploy is automated by `/Users/xiaoyang/Proj/cloudflare-kv-env/.github/work
 After first successful run, the site will be available at:
 
 - `https://hrhrng.github.io/cloudflare-kv-env/`
+
+One-time setup required in GitHub:
+
+1. `Settings` -> `Pages`
+2. Set `Build and deployment` -> `Source` to `GitHub Actions`
