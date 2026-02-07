@@ -8,7 +8,7 @@ const config: Config = {
 
   url: 'https://hrhrng.github.io',
   baseUrl: '/cloudflare-kv-env/',
-  trailingSlash: false,
+  trailingSlash: true,
 
   organizationName: 'hrhrng',
   projectName: 'cloudflare-kv-env',
