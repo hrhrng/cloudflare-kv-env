@@ -1,0 +1,17 @@
+{
+  "name": "cfenv-monorepo",
+  "private": true,
+  "workspaces": [
+    "packages/node"
+  ],
+  "scripts": {
+    "check": "npm run -w packages/node check",
+    "test": "npm run -w packages/node test",
+    "build": "npm run -w packages/node build",
+    "dev": "npm run -w packages/node dev",
+    "start": "npm run -w packages/node start",
+    "pack:node": "npm --workspace packages/node pack --dry-run",
+    "python:sync": "cd packages/python-sdk && uv sync --frozen",
+    "python:test": "cd packages/python-sdk && uv run python -m unittest discover -s tests -v"
+  }
+}

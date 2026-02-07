@@ -1,0 +1,89 @@
+name: Publish
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+concurrency:
+  group: publish-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  publish-node:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate Node package
+        run: |
+          npm run -w packages/node check
+          npm run -w packages/node test
+          npm run -w packages/node build
+
+      - name: Resolve npm dist-tag
+        id: npm_meta
+        run: |
+          NODE_VERSION=$(node -p "require('./packages/node/package.json').version")
+          if [[ "$NODE_VERSION" == *-* ]]; then
+            echo "tag=beta" >> "$GITHUB_OUTPUT"
+          else
+            echo "tag=latest" >> "$GITHUB_OUTPUT"
+          fi
+          echo "version=$NODE_VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Publish Node package
+        run: npm publish --workspace packages/node --access public --tag "${{ steps.npm_meta.outputs.tag }}"
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  publish-python:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Validate Python SDK
+        working-directory: packages/python-sdk
+        run: |
+          uv sync --frozen
+          uv run python -m unittest discover -s tests -v
+
+      - name: Build Python package
+        working-directory: packages/python-sdk
+        run: uv build
+
+      - name: Publish Python package
+        working-directory: packages/python-sdk
+        run: uvx twine upload dist/*
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}

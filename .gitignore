@@ -1,0 +1,12 @@
+node_modules
+packages/node/dist
+packages/python-sdk/dist
+packages/python-sdk/build
+.cfenv
+.env
+.env.*
+.wrangler
+packages/python-sdk/.venv
+*.egg-info
+__pycache__
+*.pyc
