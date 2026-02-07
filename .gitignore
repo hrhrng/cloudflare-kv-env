@@ -1,5 +1,7 @@
 node_modules
 site
+docs-site/build
+docs-site/.docusaurus
 packages/node/dist
 packages/python-sdk/dist
 packages/python-sdk/build

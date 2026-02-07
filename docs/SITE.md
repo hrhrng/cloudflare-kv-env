@@ -1,20 +1,18 @@
 # Docs Site
 
-This project uses **MkDocs Material** for documentation hosting on GitHub Pages.
+This project uses **Docusaurus** for documentation hosting on GitHub Pages.
 
 ## Local preview
 
 ```bash
-pip install mkdocs-material
-mkdocs serve
+npm --prefix docs-site install
+npm --prefix docs-site run start
 ```
-
-Open local URL shown by MkDocs (typically `http://127.0.0.1:8000`).
 
 ## Build
 
 ```bash
-mkdocs build --clean --strict
+npm --prefix docs-site run build
 ```
 
 ## Deployment
@@ -22,7 +20,9 @@ mkdocs build --clean --strict
 - Workflow: `.github/workflows/docs-pages.yml`
 - Trigger: push to `main` or manual dispatch
 - Deploy target: GitHub Pages (`actions/deploy-pages`)
-- Output URL: `https://hrhrng.github.io/cloudflare-kv-env/`
+- Site home: `https://hrhrng.github.io/cloudflare-kv-env/`
+- Docs root: `https://hrhrng.github.io/cloudflare-kv-env/docs/`
+- Chinese home: `https://hrhrng.github.io/cloudflare-kv-env/zh-CN/`
 
 ## One-time repository setup
 
@@ -31,11 +31,8 @@ In GitHub repository settings:
 1. Open `Settings` -> `Pages`
 2. In `Build and deployment`, set `Source` to `GitHub Actions`
 
-Without this one-time setup, deploy job fails with:
-
-- `Failed to create deployment ... Ensure GitHub Pages has been enabled`
-
 ## Structure
 
-- Config: `mkdocs.yml`
-- Content: `site-docs/`
+- Site project: `docs-site/`
+- Main docs (EN): `docs-site/docs/`
+- Chinese docs: `docs-site/i18n/zh-CN/docusaurus-plugin-content-docs/current/`

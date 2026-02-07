@@ -1,14 +1,12 @@
 # Python SDK
 
-Python package: `cfenv-kv-sync-python`
-
-## Install
+Install:
 
 ```bash
 pip install cfenv-kv-sync-python
 ```
 
-## Basic usage
+Use:
 
 ```python
 from cfenv_sdk import CfenvClient
@@ -25,15 +23,7 @@ snapshot = client.fetch_flat_env()
 print(snapshot.entries)
 ```
 
-## Export and env injection
-
-```python
-dotenv_text = client.export_dotenv()
-json_text = client.export_json()
-client.apply_to_process_env(overwrite=True)
-```
-
-## Hot updater
+Hot update:
 
 ```python
 watcher = client.create_hot_updater(
