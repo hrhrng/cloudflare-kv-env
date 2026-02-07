@@ -49,7 +49,13 @@ jobs:
           echo "version=$NODE_VERSION" >> "$GITHUB_OUTPUT"
 
       - name: Publish Node package
-        run: npm publish --workspace packages/node --access public --tag "${{ steps.npm_meta.outputs.tag }}"
+        run: |
+          SANITIZED_NPM_TOKEN="$(printf %s "${NODE_AUTH_TOKEN:-}" | tr -d '\r\n')"
+          if [ -z "$SANITIZED_NPM_TOKEN" ]; then
+            echo "NPM_TOKEN is empty after sanitization."
+            exit 1
+          fi
+          NODE_AUTH_TOKEN="$SANITIZED_NPM_TOKEN" npm publish --workspace packages/node --access public --tag "${{ steps.npm_meta.outputs.tag }}"
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
@@ -83,7 +89,7 @@ jobs:
 
       - name: Publish Python package
         working-directory: packages/python-sdk
-        run: uvx twine upload dist/*
+        run: uvx twine upload --skip-existing dist/*
         env:
           TWINE_USERNAME: __token__
           TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
