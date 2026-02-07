@@ -1,6 +1,6 @@
 {
   "name": "cfenv-kv-sync",
-  "version": "0.1.0-beta.1",
+  "version": "0.1.0-beta.2",
   "description": "Cloudflare KV-backed environment sync CLI",
   "type": "module",
   "main": "dist/sdk/index.js",

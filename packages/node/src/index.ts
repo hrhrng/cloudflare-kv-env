@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import { promises as fs } from "node:fs";
+import { createRequire } from "node:module";
 import os from "node:os";
 import path from "node:path";
 
@@ -28,7 +29,21 @@ import { getProfile, listProfileNames, upsertProfile } from "./lib/profiles.js";
 import { getWranglerAccessToken, getWranglerAccountId } from "./lib/wrangler-auth.js";
 import type { CfenvProfile, CurrentPointer, FlatEnvMetadata, ProjectLink, RemoteSnapshot } from "./types.js";
 
-const VERSION = "0.1.0";
+const require = createRequire(import.meta.url);
+
+function resolveCliVersion(): string {
+  try {
+    const packageJson = require("../package.json") as { version?: string };
+    if (typeof packageJson.version === "string" && packageJson.version.trim()) {
+      return packageJson.version;
+    }
+  } catch {
+    // noop: fall through to safe default
+  }
+  return "0.0.0";
+}
+
+const VERSION = resolveCliVersion();
 const MAX_KV_VALUE_SIZE_BYTES = 25 * 1024 * 1024;
 type StorageMode = "flat" | "snapshot";
 type ExportFormat = "dotenv" | "json";
