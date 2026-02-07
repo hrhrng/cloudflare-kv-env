@@ -68,6 +68,7 @@ uv run python -m unittest discover -s tests -v
 - Production checklist: `docs/PRODUCTION.md`
 - Release guide: `docs/RELEASE.md`
 - End-user simulation: `examples/user-flow-simulation/README.md`
+- Docs site source: `mkdocs.yml` + `site-docs/`
 
 ## Publish via GitHub
 
@@ -82,3 +83,11 @@ Trigger options:
 
 - Push a release tag such as `v0.1.0-beta.1`
 - Or run the workflow manually from GitHub Actions
+
+## Docs Deploy (GitHub Pages)
+
+Docs deploy is automated by `/Users/xiaoyang/Proj/cloudflare-kv-env/.github/workflows/docs-pages.yml` using MkDocs Material.
+
+After first successful run, the site will be available at:
+
+- `https://hrhrng.github.io/cloudflare-kv-env/`
